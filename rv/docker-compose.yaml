@@ -1,0 +1,10 @@
+# version: "3.8"
+# services:
+# api:
+# build: ./rv
+# container_name: rvc
+# ports:
+#   - "5173:5173do"
+# voulmes:
+#   - ./rv:/app
+#   - ./app/node_modules
