@@ -1,0 +1,37 @@
+import React, { useState, useEffect } from "react";
+import AudioPlayer from "./AudioPlayer";
+import AyahDetails from "./AyahDetails";
+import TranslationDropdown from "../components/TranslationDropDown";
+import Translation from "./Translation"; // Import the Translation component
+
+const AyahCard = ({ result, chapter, searchTerm }) => {
+  // Define selectedTranslation state here
+  const [selectedTranslation, setSelectedTranslation] = useState("131"); // Default translation ID
+
+  // Handle the change in selected translation
+  const handleTranslationChange = (e) => {
+    const value = e.target.value;
+    setSelectedTranslation(value); // Update the selected translation
+  };
+
+  return (
+    <div className="p-5 bg-white rounded-lg shadow-md">
+      <AyahDetails result={result} chapter={chapter} searchTerm={searchTerm} />
+      <AudioPlayer verseKey={result.verse_key} />
+      {/* Translation Dropdown */}
+      <TranslationDropdown
+        selectedTranslation={selectedTranslation}
+        handleTranslationChange={handleTranslationChange}
+      />
+
+      {/* Display Translation */}
+      <Translation
+        result={result}
+        selectedTranslation={selectedTranslation}
+        setSelectedTranslation={setSelectedTranslation} // Pass down setSelectedTranslation
+      />
+    </div>
+  );
+};
+
+export default AyahCard;
