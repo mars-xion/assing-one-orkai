@@ -36,14 +36,14 @@ function NavBar() {
             </li>
             <li className="mr-1">
               <Link
-                to="/search2"
+                to="/searchPage"
                 className={`inline-block py-2 px-4 font-semibold ${
-                  router.state.location.pathname === "/search2"
+                  router.state.location.pathname === "/searchPage"
                     ? "border-l border-t border-r rounded-t text-blue-700 bg-white"
                     : "text-blue-500 hover:text-blue-800"
                 }`}
               >
-                Search2
+                SearchPage
               </Link>
             </li>{" "}
             <li className="mr-1">

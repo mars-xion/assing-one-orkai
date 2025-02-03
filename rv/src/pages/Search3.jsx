@@ -6,6 +6,7 @@ import {
   useTranslations,
   useChapters,
   useAudioFiles,
+  useA,
 } from "../hooks/useQuranAPI";
 
 function Search3() {
@@ -23,6 +24,9 @@ function Search3() {
 
   // Fetch audio files
   const { data: audioFilesData } = useAudioFiles();
+
+  // Fetch audio files
+  const { data: audioA } = useAudioFiles();
 
   // Fetch search results
   const {
@@ -111,7 +115,6 @@ function Search3() {
             const chapterNumber = result.verse_key.split(":")[0];
             // Get chapter details
             const chapter = chaptersMap[chapterNumber] || {};
-
             // Generate the Vearse Number code for the current verse
             const vn = convertToVN(result.verse_key);
             // Construct the full audio URL
@@ -120,6 +123,7 @@ function Search3() {
             return (
               <div key={index} className="p-5 bg-white rounded-lg shadow-md">
                 <div className="flex justify-between items-center mb-2">
+                  {/* ayah info */}
                   <span className="text-sm font-medium text-gray-500">
                     Surah {chapter.name_simple} {result.verse_key}
                   </span>
@@ -131,7 +135,7 @@ function Search3() {
                   </div>
                 </div>
 
-                {/* Highlighted Text */}
+                {/* Highlighted Text and results */}
                 <Highlighter
                   highlightClassName="bg-yellow-200"
                   searchWords={[searchTerm]}

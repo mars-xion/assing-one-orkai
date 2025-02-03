@@ -39,3 +39,10 @@ export function useAudioFiles(verseKey) {
     isLoading: !data && !error,
   };
 }
+
+export function useA(verse_id) {
+  return useSWR(
+    query ? `${BASE_URL}/recitations/1/by_ayah/${verse_id}` : null,
+    fetcher
+  );
+}

@@ -3,7 +3,7 @@ import NavBar from "./Navbar";
 import Footer from "./components/Footer";
 import Settings from "./pages/Settings";
 import Search from "./pages/Search";
-import Search2 from "./pages/Search2";
+import SearchPage from "./pages/SearchPage";
 import Search3 from "./pages/Search3";
 import {
   Outlet,
@@ -44,11 +44,11 @@ const searchRoute = createRoute({
   component: Search,
 });
 
-// Search2 route
-const search2Route = createRoute({
+// SearchPage route
+const SearchPageRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: "/search2",
-  component: Search2,
+  path: "/searchPage",
+  component: SearchPage,
 });
 // Search3 route
 const search3Route = createRoute({
@@ -61,7 +61,7 @@ const search3Route = createRoute({
 const routeTree = rootRoute.addChildren([
   settingsRoute,
   searchRoute,
-  search2Route,
+  SearchPageRoute,
   search3Route,
 ]);
 
