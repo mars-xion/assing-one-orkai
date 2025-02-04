@@ -18,8 +18,8 @@ const Translation = ({ result, selectedTranslation, verse_key }) => {
   const { data: searchData } = useSearch(result.verse_key, selectedTranslation); // Pass verse_key and selectedTranslation ID
 
   useEffect(() => {
-    console.log(translationsData);
-    console.log("Verse Key in useEffect:", result.verse_key); // Log to check if it's being passed correctly
+    //console.log(translationsData);
+    //console.log("Verse Key in useEffect:", result.verse_key); // Log to check if it's being passed correctly
 
     if (!result.verse_key) {
       console.error("Verse key is missing!");
@@ -34,9 +34,9 @@ const Translation = ({ result, selectedTranslation, verse_key }) => {
       return;
     } else if (translationsData) {
       // Log the translations data for debugging
-      console.log(translationsData);
-      console.log("Verse Key:", verse_key);
-      console.log("Selected Translation:", selectedTranslation);
+      //console.log(translationsData);
+      //console.log("Verse Key:", verse_key);
+      //console.log("Selected Translation:", selectedTranslation);
 
       // Find the translation for the given verse_key and selectedTranslation
       const translation = translationsData?.translations?.find(
@@ -48,7 +48,7 @@ const Translation = ({ result, selectedTranslation, verse_key }) => {
       setTranslationText(
         translation ? translation.text : "Translation not available"
       );
-      console.log(translationt);
+      //console.log(translationt);
       setTranslationText(translationt);
     }
   }, [

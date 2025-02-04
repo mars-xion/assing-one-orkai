@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import AudioPlayer from "./AudioPlayer";
+import AudioPlayer2 from "./AudioPlayer2";
 import AyahDetails from "./AyahDetails";
 import TranslationDropdown from "../components/TranslationDropDown";
 import Translation from "./Translation"; // Import the Translation component
@@ -17,7 +17,12 @@ const AyahCard = ({ result, chapter, searchTerm }) => {
   return (
     <div className="p-5 bg-white rounded-lg shadow-md">
       <AyahDetails result={result} chapter={chapter} searchTerm={searchTerm} />
-      <AudioPlayer verseKey={result.verse_key} />
+      <AudioPlayer2
+        verseKey={result.verse_key}
+        result={result}
+        chapter={chapter}
+        searchTerm={searchTerm}
+      />
       {/* Translation Dropdown */}
       <TranslationDropdown
         selectedTranslation={selectedTranslation}

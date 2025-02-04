@@ -59,20 +59,20 @@ export function useAudioFiles(verseKey) {
 
 export function useA(recitation_id, ayah_key) {
   return useSWR(
-    query ? `${BASE_URL}/recitations/1/by_ayah/${verse_id}` : null,
+    recitation_id ? `${BASE_URL}/recitations/1/by_ayah/${ayah_key}` : null,
     fetcher
   );
 }
 
-export function useAyahAudio(recitation_id, ayah_key, verse_key) {
-  let queryParams = [];
-  if (verse_key) queryParams.push(`verse_key=${verse_key}`);
+export function useAyahAudio(recitation_id, verse_key) {
+  // let queryParams = [];
+  // if (verse_key) queryParams.push(`verse_key=${verse_key}`);
 
-  const queryString = queryParams.length > 0 ? `?${queryParams.join("&")}` : "";
+  // const queryString = queryParams.length > 0 ? `?${queryParams.join("&")}` : "";
 
   return useSWR(
-    recitation_id && ayah_key
-      ? `${BASE_URL}/recitations/${recitation_id}${ayah_key}${queryString}`
+    recitation_id
+      ? `${BASE_URL}/recitations/${recitation_id}/by_ayah/${verse_key}`
       : null,
     fetcher
   );
