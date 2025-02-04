@@ -26,9 +26,12 @@ const AyahCard = ({ result, chapter, searchTerm }) => {
 
       {/* Display Translation */}
       <Translation
+        verse_key={result.verse_key}
         result={result}
+        chapter={chapter}
+        searchTerm={searchTerm}
         selectedTranslation={selectedTranslation}
-        setSelectedTranslation={setSelectedTranslation} // Pass down setSelectedTranslation
+        handleTranslationChange={handleTranslationChange}
       />
     </div>
   );

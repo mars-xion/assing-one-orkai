@@ -8,6 +8,23 @@ export function useTranslations() {
   return useSWR(`${BASE_URL}/resources/translations`, fetcher);
 }
 
+export function useTranslations2(translation_id, verse_key) {
+  // Initialize queryParams as an empty array
+  let queryParams = [];
+
+  // Construct the query string based on the optional parameters
+  if (verse_key) queryParams.push(`verse_key=${verse_key}`);
+
+  const queryString = queryParams.length > 0 ? `?${queryParams.join("&")}` : "";
+
+  return useSWR(
+    translation_id
+      ? `${BASE_URL}/quran/translations/${translation_id}${queryString}`
+      : null,
+    fetcher
+  );
+}
+
 export function useRecitations() {
   return useSWR(`${BASE_URL}/resources/recitations`, fetcher);
 }
@@ -40,9 +57,23 @@ export function useAudioFiles(verseKey) {
   };
 }
 
-export function useA(verse_id) {
+export function useA(recitation_id, ayah_key) {
   return useSWR(
     query ? `${BASE_URL}/recitations/1/by_ayah/${verse_id}` : null,
+    fetcher
+  );
+}
+
+export function useAyahAudio(recitation_id, ayah_key, verse_key) {
+  let queryParams = [];
+  if (verse_key) queryParams.push(`verse_key=${verse_key}`);
+
+  const queryString = queryParams.length > 0 ? `?${queryParams.join("&")}` : "";
+
+  return useSWR(
+    recitation_id && ayah_key
+      ? `${BASE_URL}/recitations/${recitation_id}${ayah_key}${queryString}`
+      : null,
     fetcher
   );
 }

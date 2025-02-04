@@ -1,82 +1,64 @@
 import React, { useState, useEffect } from "react";
-import { useTranslations, useSearch } from "../hooks/useQuranAPI"; // Import the hooks
+import { useTranslations2, useSearch } from "../hooks/useQuranAPI"; // Import the hooks
 
-const Translation = ({ result, selectedTranslation }) => {
+const Translation = ({ result, selectedTranslation, verse_key }) => {
   const [translationText, setTranslationText] = useState("");
 
   // Get translations data from the useTranslations hook
-  //const { data: translationsData, error: translationsError } =
-  //useTranslations();
+  const {
+    data: translationsData,
+    error: translationsError,
+    isLoading: translationIsLoading,
+  } = useTranslations2(
+    selectedTranslation, // Pass translation_id
+    verse_key
+  );
 
   // Use useSearch hook to fetch verse translation
-  const { data, error, isLoading } = useSearch(
-    result.verse_key,
-    selectedTranslation
-  ); // Pass verse_key and selectedTranslation ID
-
-  // Fetch the translation text when selectedTranslation or result changes
-  /* useEffect(() => {
-    const fetchTranslation = async () => {
-      if (!translationsData) return; // Wait for translations data to be available
-
-      try {
-        // Find the translation from the data using the selectedTranslation ID
-        const translation = translationsData.translations?.find(
-          (t) => t.id === parseInt(selectedTranslation)
-        );
-
-        if (!translation) {
-          setTranslationText("Translation not found.");
-          return;
-        }
-
-        const verseKey = result.verse_key; // e.g., "1:1"
-        const translationId = selectedTranslation; // Selected translation ID
-        const { data } = await useSearch(verseKey, translationId); // Fetch the verse translation using useSearch
-
-        // Find the specific translation text
-        const selectedTranslationText = data?.verse?.translations?.find(
-          (t) => t.resource_id === parseInt(selectedTranslation)
-        );
-
-        if (selectedTranslationText) {
-          setTranslationText(selectedTranslationText.text); // Set the translation text
-        } else {
-          setTranslationText("Translation not available.");
-        }
-      } catch (error) {
-        console.error("Error fetching translation:", error);
-        setTranslationText("Error fetching translation");
-      }
-    };
-
-    fetchTranslation();
-  }, [selectedTranslation, result, translationsData]); // Re-fetch when selectedTranslation, result, or translationsData changes
-*/
+  const { data: searchData } = useSearch(result.verse_key, selectedTranslation); // Pass verse_key and selectedTranslation ID
 
   useEffect(() => {
-    if (isLoading) {
-      setTranslationText("Loading translation...");
-    } else if (error) {
-      setTranslationText("Error fetching translation");
-    } else if (data) {
-      // Extract the translation text based on the selected translation ID
-      const translation = data.verse.translations?.find(
-        (t) => t.resource_id === parseInt(selectedTranslation)
-      );
+    console.log(translationsData);
+    console.log("Verse Key in useEffect:", result.verse_key); // Log to check if it's being passed correctly
 
-      if (translation) {
-        setTranslationText(translation.text); // Set the translation text
-      } else {
-        setTranslationText("Translation not available");
-      }
+    if (!result.verse_key) {
+      console.error("Verse key is missing!");
+      return; // Return early if there's no verseKey
     }
-  }, [data, error, isLoading, result.verse_key, selectedTranslation]); // Re-fetch when data or selectedTranslation changes
 
-  // Handle errors in fetching translations
-  /*if (translationsError) {
-    return <div>Error loading translations</div>;
-  }*/
+    if (translationIsLoading) {
+      setTranslationText("Loading translation...");
+      return;
+    } else if (translationsError) {
+      setTranslationText("Error fetching translation.");
+      return;
+    } else if (translationsData) {
+      // Log the translations data for debugging
+      console.log(translationsData);
+      console.log("Verse Key:", verse_key);
+      console.log("Selected Translation:", selectedTranslation);
+
+      // Find the translation for the given verse_key and selectedTranslation
+      const translation = translationsData?.translations?.find(
+        (t) => t.verse_key === result.verse_key //&&
+        //t.resource_id === parseInt(selectedTranslation)
+      );
+      const translationt = translationsData.translations[0].text;
+
+      setTranslationText(
+        translation ? translation.text : "Translation not available"
+      );
+      console.log(translationt);
+      setTranslationText(translationt);
+    }
+  }, [
+    searchData,
+    translationsData,
+    translationsError,
+    translationIsLoading,
+    result.verse_key,
+    selectedTranslation,
+  ]); // Re-fetch when data or selectedTranslation changes
 
   return (
     <div className="mt-4">
