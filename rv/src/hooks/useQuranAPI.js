@@ -57,11 +57,8 @@ export function useAudioFiles(verseKey) {
   };
 }
 
-export function useA(recitation_id, ayah_key) {
-  return useSWR(
-    recitation_id ? `${BASE_URL}/recitations/1/by_ayah/${ayah_key}` : null,
-    fetcher
-  );
+export function useA(ayah_key) {
+  return useSWR(`${BASE_URL}/recitations/1/by_ayah/${ayah_key}`, fetcher);
 }
 
 export function useAyahAudio(recitation_id, verse_key) {

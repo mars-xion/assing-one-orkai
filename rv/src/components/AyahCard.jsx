@@ -18,7 +18,7 @@ const AyahCard = ({ result, chapter, searchTerm }) => {
     <div className="p-5 bg-white rounded-lg shadow-md">
       <AyahDetails result={result} chapter={chapter} searchTerm={searchTerm} />
       <AudioPlayer2
-        verseKey={result.verse_key}
+        verse_key={result.verse_key}
         result={result}
         chapter={chapter}
         searchTerm={searchTerm}
